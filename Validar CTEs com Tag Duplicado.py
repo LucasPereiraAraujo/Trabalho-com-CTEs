@@ -3,9 +3,9 @@ import shutil
 import pandas as pd
 
 # Pastas
-pasta_origem = r'C:\Users\lucas.araujo\Desktop\XML 2Q'
-pasta_erro = r'C:\Users\lucas.araujo\Desktop\COM_ERRO_DUPLICADO2Q'
-pasta_ok = r'C:\Users\lucas.araujo\Desktop\SEM_ERRO2Q'
+pasta_origem = r'PASTA A VERIFICAR' #Colocar a pasta onde estao os xml
+pasta_erro = r'PASTA PARA MANDAR OS ARQUIVOS COM ERRO' #Pasta onde ficará os arquivos que estão com erro
+pasta_ok = r'PASTA PARA MANDAR OS ARQUIVOS SEM ERRO' #PAsta onde ficará os arquivos que estão válidos
 os.makedirs(pasta_erro, exist_ok=True)
 os.makedirs(pasta_ok, exist_ok=True)
 
@@ -13,7 +13,7 @@ os.makedirs(pasta_ok, exist_ok=True)
 arquivos_com_erro = []
 arquivos_ok = []
 
-# Verifica cada XML
+# Verifica cada XML, contando se a tag cteProc está duplicada ou não
 for nome_arquivo in os.listdir(pasta_origem):
     if nome_arquivo.lower().endswith('.xml'):
         caminho = os.path.join(pasta_origem, nome_arquivo)
@@ -36,7 +36,10 @@ for nome_arquivo in os.listdir(pasta_origem):
 # Salva planilha dos arquivos com erro
 if arquivos_com_erro:
     df_erro = pd.DataFrame(arquivos_com_erro, columns=['Arquivos com erro'])
+
+    #Deixa os arquivos com erro detalhados numa planilha
     caminho_planilha = r'C:\Users\lucas.araujo\Desktop\CTEs_com_erro.xlsx'
+
     df_erro.to_excel(caminho_planilha, index=False)
     print(f"\n✅ {len(arquivos_com_erro)} arquivos com erro copiados para: {pasta_erro}")
     print(f"📝 Planilha criada: {caminho_planilha}")
